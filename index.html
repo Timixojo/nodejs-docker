@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Deployment</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            text-align: center;
+            color: #222;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 35px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .status {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .pipeline {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #172554;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        #server-status {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Cloud Deployment</h1>
+    <p>Node.js Containerized Application</p>
+</header>
+
+<div class="container">
+
+    <div class="status">
+        <h2>Application Status</h2>
+        <p>🟢 Application Running</p>
+
+        <button onclick="checkStatus()">Check Server Status</button>
+        <p id="server-status"></p>
+    </div>
+
+    <h2>Deployment Details</h2>
+
+    <div class="details">
+        <div class="card">
+            <h3>Runtime</h3>
+            <p>Node.js</p>
+        </div>
+
+        <div class="card">
+            <h3>Containerization</h3>
+            <p>Docker</p>
+        </div>
+
+        <div class="card">
+            <h3>Environment</h3>
+            <p>Linux Server</p>
+        </div>
+
+        <div class="card">
+            <h3>Image Registry</h3>
+            <p>Docker Hub</p>
+        </div>
+    </div>
+
+    <div class="pipeline">
+        <h2>Deployment Pipeline</h2>
+        <p>GitHub → Linux Server → Docker → Live Application</p>
+    </div>
+
+    <p>Successfully deployed with Docker 🚀</p>
+
+</div>
+
+<script>
+    async function checkStatus() {
+        const status = document.getElementById("server-status");
+
+        try {
+            const response = await fetch("/api/status");
+            const data = await response.json();
+
+            status.textContent =
+                `${data.status.toUpperCase()} — ${data.message}`;
+        } catch (error) {
+            status.textContent = "Unable to reach the Node.js server";
+        }
+    }
+</script>
+
+</body>
+</html>
